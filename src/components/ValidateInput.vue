@@ -8,6 +8,7 @@
       :value="inputRef.val"
       @input="updateValue"
       @blur="validateInput"
+      v-bind="$attrs"
     >
     <span v-if="inputRef.error" class="invalid-feedback">{{inputRef.message}}</span>
   </div>
@@ -19,7 +20,7 @@ import { defineComponent, PropType, reactive } from 'vue'
 const emailReg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 interface RuleProp {
-  type: 'required' | 'email';
+  type: 'required' | 'email' | 'range';
   message: string;
 }
 
@@ -32,6 +33,8 @@ export default defineComponent({
     modelValue: String
   },
   components: {},
+  // 不希望组件的根元素集成attribute
+  inheritAttrs: false,
   setup (props, { emit }) {
     const inputRef = reactive({
       val: props.modelValue || '',
@@ -57,11 +60,15 @@ export default defineComponent({
             case 'email':
               passed = emailReg.test(inputRef.val)
               break
+            case 'range':
+              passed = (inputRef.val.trim()).length >= 3 && (inputRef.val.trim()).length <= 12
+              break
             default:
               break
           }
           return passed
         })
+        console.log(allPassed)
         inputRef.error = !allPassed
       }
     }

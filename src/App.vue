@@ -5,20 +5,18 @@
     <form action="">
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">邮箱地址</label>
-        <validate-input v-model="val" :rules="emialRules"></validate-input>
-        {{val}}
-        <!-- <div class="form-text text-danger" v-if="emailRef.error">{{emailRef.message}}</div> -->
+        <validate-input @focus="focus" @input="input" type="text" placeholder="请输入邮箱地址" v-model="emailVal" :rules="emialRules"></validate-input>
       </div>
       <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label">密码</label>
-        <input type="password" class="form-control" id="exampleInputPassword1">
+        <validate-input :rules="passwordRules" type="password" placeholder="请输入密码" v-model="passwordVal"></validate-input>
       </div>
     </form>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from 'vue'
+import { defineComponent, InputHTMLAttributes, reactive, ref } from 'vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import ColumnList, { ColumnProps } from './components/ColumnList.vue'
 import GlobalHeader, { UserProps } from './components/GlobalHeader.vue'
@@ -66,6 +64,17 @@ const emialRules: RulesProp = [
   }
 ]
 
+const passwordRules: RulesProp = [
+  {
+    type: 'required',
+    message: '密码不能为空'
+  },
+  {
+    type: 'range',
+    message: '请输入3-12位的密码'
+  }
+]
+
 export default defineComponent({
   name: 'App',
   components: {
@@ -74,12 +83,24 @@ export default defineComponent({
     ValidateInput
   },
   setup () {
-    const val = ref('aa')
+    const emailVal = ref('')
+    const passwordVal = ref('')
+
+    const input = (e: InputEvent) => {
+      console.log((e.target as HTMLInputElement).value)
+    }
+    const focus = () => {
+      console.log(123)
+    }
     return {
       list: testData,
       currentUser,
       emialRules,
-      val
+      emailVal,
+      passwordRules,
+      passwordVal,
+      input,
+      focus
     }
   }
 })
