@@ -2,7 +2,7 @@
   <div class="container">
     <global-header :user="currentUser"></global-header>
     <!-- <column-list :list="list"></column-list> -->
-    <form action="">
+    <validate-form @form-submit="onFormSubmit">
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">邮箱地址</label>
         <validate-input @focus="focus" @input="input" type="text" placeholder="请输入邮箱地址" v-model="emailVal" :rules="emialRules"></validate-input>
@@ -11,7 +11,12 @@
         <label for="exampleInputPassword1" class="form-label">密码</label>
         <validate-input :rules="passwordRules" type="password" placeholder="请输入密码" v-model="passwordVal"></validate-input>
       </div>
-    </form>
+      <!-- 使用自定义template 对 插槽做转换 -->
+      <!-- v-slot 组件内部定义的模板名称 -->
+      <template #submit>
+        <span class="btn btn-danger">submit</span>
+      </template>
+    </validate-form>
   </div>
 </template>
 
@@ -21,6 +26,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import ColumnList, { ColumnProps } from './components/ColumnList.vue'
 import GlobalHeader, { UserProps } from './components/GlobalHeader.vue'
 import ValidateInput, { RulesProp } from './components/ValidateInput.vue'
+import ValidateForm from './components/ValidateForm.vue'
 
 const testData: ColumnProps[] = [
   {
@@ -80,7 +86,8 @@ export default defineComponent({
   components: {
     // ColumnList,
     GlobalHeader,
-    ValidateInput
+    ValidateInput,
+    ValidateForm
   },
   setup () {
     const emailVal = ref('')
@@ -92,6 +99,10 @@ export default defineComponent({
     const focus = () => {
       console.log(123)
     }
+
+    const onFormSubmit = (res: boolean) => {
+      console.log(res, 6879)
+    }
     return {
       list: testData,
       currentUser,
@@ -100,7 +111,8 @@ export default defineComponent({
       passwordRules,
       passwordVal,
       input,
-      focus
+      focus,
+      onFormSubmit
     }
   }
 })

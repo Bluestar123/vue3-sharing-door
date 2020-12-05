@@ -4,7 +4,6 @@
       type="email"
       class="form-control"
       :class="{'is-invalid': inputRef.error}"
-      id="exampleInputEmail1"
       :value="inputRef.val"
       @input="updateValue"
       @blur="validateInput"
