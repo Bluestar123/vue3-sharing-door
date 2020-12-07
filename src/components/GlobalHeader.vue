@@ -4,7 +4,7 @@
       <a class="navbar-brand" href="#">Sharing-Door</a>
       <ul v-if="!user.isLogin" class="list-inline mb-0">
         <li class="list-inline-item">
-          <a href="#" type="button" class="btn btn-outline-light">登录</a>
+          <router-link :to="`/login`" type="button" class="btn btn-outline-light">登录</router-link>
         </li>
         <li class="list-inline-item">
           <a href="#" type="button" class="btn btn-outline-light">注册</a>
