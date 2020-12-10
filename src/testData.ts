@@ -1,7 +1,14 @@
+// import { ColumnProps } from './testData';
+interface ImageProps {
+  _id?: string;
+  url?: string;
+  createdAt?: string;
+}
+
 export interface ColumnProps {
   id: number;
   title: string;
-  avatar?: string;
+  avatar?: ImageProps;
   description: string;
 }
 export interface PostProps {
@@ -16,14 +23,14 @@ export const testData: ColumnProps[] = [
   {
     id: 1,
     title: 'test1的专栏',
-    description: '这是的test1专栏，有一段非常有意思的简介，可以更新一下欧, 这是的test1专栏，有一段非常有意思的简介，可以更新一下欧',
-    avatar: 'https://api.ixiaowai.cn/api/api.php'
+    description: '这是的test1专栏，有一段非常有意思的简介，可以更新一下欧, 这是的test1专栏，有一段非常有意思的简介，可以更新一下欧'
+    // avatar: 'https://api.ixiaowai.cn/api/api.php'
   },
   {
     id: 2,
     title: 'test2的专栏',
-    description: '这是的test2专栏，有一段非常有意思的简介，可以更新一下欧',
-    avatar: 'https://api.ixiaowai.cn/api/api.php'
+    description: '这是的test2专栏，有一段非常有意思的简介，可以更新一下欧'
+    // avatar: 'https://api.ixiaowai.cn/api/api.php'
   },
   {
     id: 3,
@@ -34,8 +41,8 @@ export const testData: ColumnProps[] = [
   {
     id: 4,
     title: 'test4的专栏',
-    description: '这是的test2专栏，有一段非常有意思的简介，可以更新一下欧',
-    avatar: 'https://api.ixiaowai.cn/api/api.php'
+    description: '这是的test2专栏，有一段非常有意思的简介，可以更新一下欧'
+    // avatar: 'https://api.ixiaowai.cn/api/api.php'
   }
 ]
 

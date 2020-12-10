@@ -44,6 +44,14 @@ const passwordRules: RulesProp = [
   {
     type: 'range',
     message: '请输入3-12位的密码'
+  },
+  {
+    type: 'custom',
+    message: 'a',
+    validator: function () {
+      // formData.password === formData.repeatPassword
+      return 2 > 1
+    }
   }
 ]
 

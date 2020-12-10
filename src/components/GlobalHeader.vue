@@ -17,7 +17,7 @@
             <dropdown-item disabled>
               <a href="#" class="dropdown-item">新建文章</a>
             </dropdown-item>
-            <dropdown-item>
+            <dropdown-item @click.prevent="changeLocation">
               <a href="#" class="dropdown-item">编辑资料</a>
             </dropdown-item>
             <dropdown-item>
@@ -31,7 +31,7 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, inject, PropType, Ref } from 'vue'
 import Dropdown from './Dropdown.vue'
 import DropdownItem from './DropdownItem.vue'
 export interface UserProps {
@@ -48,8 +48,20 @@ export default defineComponent({
       required: true
     }
   },
-  components: { Dropdown, DropdownItem }
-
+  components: { Dropdown, DropdownItem },
+  setup () {
+    const location = inject('location')
+    const geolocation = inject('geolocation')
+    // const testP = inject('testp')
+    console.log(location, geolocation)
+    const changeLocation = () => {
+      (location as Ref<number>).value = 10000 * Math.random()
+      // (testP as Ref<number>).value = 10000 * Math.random()
+    }
+    return {
+      changeLocation
+    }
+  }
 })
 
 </script>
