@@ -19,4 +19,7 @@ app.config.globalProperties.$http = c
 app.use(router)
 app.use(store)
 app.provide('testP', ref(0))
+app.provide('fn', () => {
+  console.log('我是测试方法')
+})
 app.mount('#app')

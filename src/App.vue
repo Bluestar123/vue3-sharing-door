@@ -49,6 +49,9 @@ export default defineComponent({
         testP.value = 123
       }, 2000)
     }
+
+    const fn = inject('fn')
+    if (typeof fn === 'function') fn()
     // createMessage('aaaaaaaaaaa', 'error')
 
     const store = useStore<GlobalDataprops>()
