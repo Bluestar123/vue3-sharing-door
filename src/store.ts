@@ -13,6 +13,7 @@ export interface GlobalDataprops {
   columns: ColumnProps[];
   posts: PostProps[];
   user: UserProps;
+  token: string;
 }
 
 const store = createStore<GlobalDataprops>({
@@ -22,7 +23,8 @@ const store = createStore<GlobalDataprops>({
     posts: testPosts,
     user: {
       isLogin: true
-    }
+    },
+    token: ''
   },
   mutations: {
     login (state) {

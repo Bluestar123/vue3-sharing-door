@@ -19,11 +19,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ComponentInternalInstance, getCurrentInstance, inject, onBeforeMount, provide, reactive, ref, Ref } from 'vue'
+import { computed, defineComponent, getCurrentInstance, inject, provide, reactive, ref, Ref } from 'vue'
 import { useStore } from 'vuex'
 import { GlobalDataprops } from './store'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import GlobalHeader from './components/GlobalHeader.vue'
+import GlobalHeader, {UserProps} from './components/GlobalHeader.vue'
 import createMessage from './components/createMessage'
 // import Loading from './components/Loading.vue'
 

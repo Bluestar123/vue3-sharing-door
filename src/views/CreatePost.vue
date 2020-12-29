@@ -1,6 +1,7 @@
 <template>
   <div class="create-post-page">
     <h4>{{isEditMode ? '编辑文章' : '新建文章'}}</h4>
+    <input type="file" name="file" id="">
     <validate-form @form-submit="onFormSubmit">
       <div class="mb-3">
         <label class="form-label">文章标题：</label>
@@ -36,6 +37,7 @@ import { GlobalDataprops, UserProps } from '../store'
 import ValidateInput, { RulesProp } from '../components/ValidateInput.vue'
 import ValidateForm from '../components/ValidateForm.vue'
 import { PostProps } from '@/testData'
+import axios from 'axios'
 export default defineComponent({
   name: 'Login',
   components: {
@@ -76,6 +78,22 @@ export default defineComponent({
             }
           })
         }
+      }
+    }
+
+    const handleFileChange = (e: Event) => {
+      const target = e.target as HTMLInputElement
+      const files = target.files
+      if (files) {
+        const uploadedFile = files[0]
+        const formData = new FormData()
+        formData.append(uploadedFile.name, uploadedFile)
+
+        axios.post('/upload', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
       }
     }
     return {

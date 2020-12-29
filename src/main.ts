@@ -4,7 +4,7 @@ import App from './App.vue'
 import store from './store'
 import axios from 'axios'
 
-axios.defaults.baseURL = ''
+axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? '' : ''
 axios.interceptors.request.use(config => {
   config.params = { ...config.params, icode: '' }
   return config

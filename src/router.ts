@@ -37,14 +37,44 @@ const router = createRouter({
 
 // 路由守卫
 router.beforeEach((to, from, next) => {
-  if (!store.state.user.isLogin && to.meta?.requiredLogin) {
-    next({
-      name: 'login'
-    })
-  } else if (to.meta?.requiredLogin && store.state.user.isLogin) {
-    next('/')
+  // if (!store.state.user.isLogin && to.meta?.requiredLogin) {
+  //   next({
+  //     name: 'login'
+  //   })
+  // } else if (to.meta?.requiredLogin && store.state.user.isLogin) {
+  //   next('/')
+  // } else {
+  //   next()
+  // }
+  const { user, token } = store.state
+  const { requiredLogin, redirectAlreadyLogin } = to.meta
+
+  if (!user.isLogin) {
+    if (token) {
+      // 发送请求
+      store.dispatch('fetchCurrentUser').then(res => {
+        if (redirectAlreadyLogin) {
+          next('/')
+        } else {
+          next()
+        }
+      }).catch(e=>{
+        store.commit('logout')
+        next('/login')
+      })
+    } else {
+      if (requiredLogin) {
+        next('/login')
+      } else {
+        next()
+      }
+    }
   } else {
-    next()
+    if (redirectAlreadyLogin) {
+      next('/')
+    } else {
+      next()
+    }
   }
 })
 
